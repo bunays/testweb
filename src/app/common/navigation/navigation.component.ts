@@ -13,7 +13,7 @@ import { User } from '../../_models';
 export class NavigationComponent implements OnInit {
   user: User;
   arryOfAlertData=[];
-  ExpertDetails:any;
+  userDetails:any;
 
   private listTitles: any[];
     location: Location;
@@ -32,7 +32,7 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit(): void {
     // this.getAlertDetails();
-    // this.ExpertDetails = JSON.parse(localStorage.getItem('Expert_Details'));
+    this.userDetails = JSON.parse(localStorage.getItem('user_details'));
       const navbar: HTMLElement = this.element.nativeElement;
       this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
       this.router.events.subscribe((event) => {

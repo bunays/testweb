@@ -92,8 +92,8 @@ export class UserlistComponent implements OnInit {
         intSkipCount: skipCount,
         intPageLimit: this.intPageLimit,
       }
-      this.userSRV.get_user_list(objData).subscribe(res => {
-        console.log("sahusd ----",res)
+      
+      this.userSRV.get_user_list(objData).subscribe((res: any) => {
         if (res && res.success === true) {
 
           this.arryallUserData = res.data[0]

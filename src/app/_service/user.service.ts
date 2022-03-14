@@ -21,7 +21,11 @@ export class UserService {
     private http: HttpClient,
     private https: HttpClientService
 
-  ) {}
+  ) {
+    
+  }
+
+ 
 
   
   user_login(obj){
@@ -36,10 +40,20 @@ export class UserService {
     .catch(this.https.hamdleError);
   }
 
-  get_user_list(obj){
-    return this.https.post('/api/user/getListAllUserDetails',  obj )
-    .map(res => res.json())
-    .catch(this.https.hamdleError);
+  get_user_list(param: any){
+    console.log("param -=====",param)
+    // // let queryParams = {"page":1,"per_page":1};
+    // let queryParams =  obj
+    // console.log("queryParams -=====",queryParams)
+    // // return this.https.get('/api/user/getListAllUserDetails',  queryParams  )
+    // let params =obj;
+    let params = new HttpParams().set('_id', param);
+    console.log(param);
+    return this.http.get(`${this.api}/api/user/getListAllUserDetails`, { params: params })
+    // return this.https.get('/api/user/getListAllUserDetails',{ search: params })
+    // .map(res => res.json())
+    // .catch(this.https.hamdleError);
+  
   }
 
 

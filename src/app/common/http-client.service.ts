@@ -51,7 +51,7 @@ export class HttpClientService {
   get(url) {
     const headers = new Headers();
     HttpClientService.createAuthorizationHeader(headers);
-    return this.http.get(`${this.api}` + url, { headers: headers });
+    return this.http.get(`${this.api}` + url,  { headers: headers });
   }
 
   put(url, data) {
