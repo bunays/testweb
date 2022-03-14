@@ -59,7 +59,7 @@
                                 <div class="col-md-6 ">
                                     <div class="form-group">
                                         <div class="frmpos1">
-                                            <label class="lbltxt"> Email </label>
+                                            <label class="lbltxt"> Email<span class="text-danger bold">*</span> </label>
                                             <input type="email" class="form-control inputtype" formControlName="email"  
                                             placeholder="Enter Your Email" [ngClass]="{ 'status-danger': getControl.email.invalid }" >
                                             <div *ngIf="getControl.email.touched && getControl.email.invalid" class="text-danger">
@@ -72,9 +72,9 @@
                                 <div class="col-md-6 ">
                                     <div class="form-group">
                                         <div class="frmpos1">
-                                            <label> Password </label>
+                                            <label> Password<span class="text-danger bold">*</span> </label>
                                             <input type="password" class="form-control inputtype"  formControlName="password"  
-                                            placeholder=" Enter Your  password" name="email"  [ngClass]="{ 'status-danger': getControl.password.invalid }" >
+                                            placeholder=" Enter Your  password"  [ngClass]="{ 'status-danger': getControl.password.invalid }" >
                                             <div class="errors" *ngIf="UserForm.get('password').invalid && (UserForm.get('password').touched || UserForm.get('password').dirty)">
                                                 <div *ngIf="UserForm.get('password').hasError('required')">
                                                     password is required
@@ -92,9 +92,9 @@
                                 <div class="col-md-6 ">
                                     <div class="form-group">
                                         <div class="frmpos1">
-                                            <label> Pre Password </label>
+                                            <label> Pre Password<span class="text-danger bold">*</span> </label>
                                             <input type="password" class="form-control inputtype"  formControlName="prePassword"  
-                                            placeholder=" Enter Your Pre Password" name="email"  [ngClass]="{ 'status-danger': getControl.prePassword.invalid }" >
+                                            placeholder=" Enter Your Pre Password"   [ngClass]="{ 'status-danger': getControl.prePassword.invalid }" >
                                             <div class="errors" *ngIf="UserForm.get('prePassword').invalid && (UserForm.get('prePassword').touched || UserForm.get('prePassword').dirty)">
                                                 <div *ngIf="UserForm.get('prePassword').hasError('required')">
                                                     prePassword is required

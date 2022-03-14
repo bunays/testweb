@@ -1,6 +1,5 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
 import Swal from "sweetalert2";
-import {AdminService} from '../../_service/admin.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { PagerService } from "../../_service/pager.service";
@@ -33,7 +32,6 @@ export class UserlistComponent implements OnInit {
 
   constructor(
     private pageServiceObj: PagerService,
-    private adminSrv: AdminService,
     private formBuilder: FormBuilder,
     private router: Router,
     private modalService: BsModalService,

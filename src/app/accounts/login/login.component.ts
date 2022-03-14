@@ -3,7 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import Swal from "sweetalert2";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {AdminService  } from '../../_service/admin.service';
 import {UserService} from '../../_service/user.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
@@ -18,13 +17,11 @@ export class LoginComponent implements OnInit {
   loading = false;
   password ;
   show = false;
-  
 
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private adminSRV: AdminService,
     private userSRV:UserService
 
   ) { }
