@@ -88,7 +88,9 @@ export class UserlistComponent implements OnInit {
             this.intPageLimit
           );
         } else {
-          console.log(res);
+          if( res.message === "Token Error"){
+            this.router.navigate( ['./admin']);
+          }
         }
       },(error:HttpErrorResponse) => {
 

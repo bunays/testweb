@@ -101,6 +101,10 @@ export class AddUserComponent implements OnInit {
               this.router.navigate(['/userlist']);
           } else {
             Swal.fire("Error!", res.message, "error");
+            if( res.message === "Token Error"){
+              this.router.navigate( ['./admin']);
+            }
+           
           }
 
         },(error:HttpErrorResponse) => {
