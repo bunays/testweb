@@ -19,8 +19,8 @@
                   <div class="form-group">
                     <div class="frmpos1">
                       <label class="lbltxt">  User Name </label>
-                      <input type="text" class="form-control inputtype" formControlName="txtName"
-                      name="txtName"  >
+                      <input type="text" class="form-control inputtype" formControlName="name"
+                      name="name"  >
                     </div>
                   </div>
                 </div>
@@ -49,8 +49,7 @@
 
                 <div class="col-md-12 pull-right">
                   <div class="row pull-right">
-                  <button  class="btn1" >Search</button>
-                  <!-- (click)="getTask_VerificationList()" -->
+                  <button  class="btn1"  (click)="getAllUserList()">Search</button> 
                   </div>
                 </div>
 

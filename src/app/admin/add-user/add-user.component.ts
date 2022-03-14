@@ -5,7 +5,7 @@ import {UserService} from '../../_service/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import {FormBuilder,Validators,FormGroup} from '@angular/forms';
+import {FormBuilder,Validators,FormGroup,ValidationErrors} from '@angular/forms';
 import { PasswordStrengthValidator } from "./password-strength.validators";
 
 @Component({
@@ -23,7 +23,6 @@ export class AddUserComponent implements OnInit {
   UpdateForm:FormGroup;
   frmTaskSarchData:FormGroup;
   intGlblUserId:any;
-
 
   pager: any = {};
   intTotalCount = 0;
@@ -52,11 +51,32 @@ export class AddUserComponent implements OnInit {
 
   }
 
+
   get getControl() { return this.UserForm.controls; }
+
+  get Email() {
+    return this.UserForm.get('email');
+  } 
 
   createUser(obj){
     console.log("skosdy 00----",obj)
     try {
+      if (this.UserForm.invalid) {
+
+        console.error("clicked submit->form is not valid");
+        let errorStr="";
+        Object.keys(this.UserForm.controls).forEach(key => {
+
+          const controlErrors: ValidationErrors = this.UserForm.get(key).errors;
+            if (controlErrors != null) {
+              Object.keys(controlErrors).forEach(keyError => {
+                console.log('Key control: ' + key + ', keyError: ' + keyError + ', err value: ', controlErrors[keyError]);
+              });
+            }
+          });
+          Swal.fire("warning!", "Validators Required" , "warning");
+        return;
+      }
 
       if( this.getControl.password.value === this.getControl.prePassword.value){
        
@@ -86,8 +106,8 @@ export class AddUserComponent implements OnInit {
         },(error:HttpErrorResponse) => {
           // Swal.fire("warning!", error.message, "warning");
           console.log(error.error);
-          if( error.message === "token expired"){
-          this.router.navigate(['']);
+          if( error.message === "jwt expired"){
+            this.router.navigate( ['./admin']);
           }
         });
 

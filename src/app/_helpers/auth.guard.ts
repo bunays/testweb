@@ -15,7 +15,6 @@ export class AuthGuard implements CanActivate {
 
         var token = localStorage.getItem('token')
         if (localStorage.getItem('token')) {
-
           return true;
         }else if(token === "token expired") {
           this.router.navigate( ['/admin']);

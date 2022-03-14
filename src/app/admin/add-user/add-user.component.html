@@ -65,6 +65,9 @@
                                             <div *ngIf="getControl.email.touched && getControl.email.invalid" class="text-danger">
                                                 <div *ngIf="getControl.email.errors.required">Email is required.</div>
                                             </div>
+                                            <div style="color: red;" *ngIf="Email.errors?.email">
+                                                Email not valid.
+                                           </div> 
                                         </div>
                                     </div>
                                 </div>

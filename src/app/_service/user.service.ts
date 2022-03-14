@@ -24,9 +24,6 @@ export class UserService {
   ) {
     
   }
-
- 
-
   
   user_login(obj){
     return this.https.post('/api/auth/login', obj)
@@ -41,20 +38,23 @@ export class UserService {
   }
 
   get_user_list(param: any){
-    console.log("param -=====",param)
-    
-  
-    let params = new HttpParams().set('_id', param);
-    console.log(param);
-    return this.http.get(`${this.api}/api/user/getListAllUserDetails`, { params: params })
-  
+    return this.https.get('/api/user/getListAllUserDetails', param )
+    .map(res => res.json())
+    .catch(this.https.hamdleError);
   
   }
 
+  // get_user_list(param: any){
+  //   return this.https.post('/api/user/getListAllUserDetails', param )
+  //   .map(res => res.json())
+  //   .catch(this.https.hamdleError);
+  
+  // }
+
 
   logout() {
-      localStorage.clear();
-      this.router.navigate(['/admin']);
+    localStorage.clear();
+    this.router.navigate(['/admin']);
   }
 
 

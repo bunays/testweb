@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import {Http, Headers, Response} from '@angular/http';
-
+import {Http, Headers, Response,} from '@angular/http';
+import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
@@ -18,9 +18,9 @@ export class HttpClientService {
   ) { }
 
    static createAuthorizationHeader(headers: Headers) {
-    // const token =  JSON.parse(localStorage.getItem('token'));
-    // headers.append('authorization',  token);
-// console.log("sho ----",token)
+    const token =  JSON.parse(localStorage.getItem('token'));
+    console.log("dhfusj ===",token)
+    headers.append('authorization',  'Tew124'+" "+token);
   }
 
   /*
@@ -48,10 +48,10 @@ export class HttpClientService {
 /*
   @Function: All Api Get Method Set token in header (Authorization', 'bearer ')
   */
-  get(url) {
+  get(url,param: any) {
     const headers = new Headers();
     HttpClientService.createAuthorizationHeader(headers);
-    return this.http.get(`${this.api}` + url,  { headers: headers });
+    return this.http.get(`${this.api}` + url,  {params :param, headers: headers  });
   }
 
   put(url, data) {

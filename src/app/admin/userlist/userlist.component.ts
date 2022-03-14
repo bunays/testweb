@@ -19,7 +19,6 @@ export class UserlistComponent implements OnInit {
   modalRef: BsModalRef;
   objSelected :any;
   UserForm:FormGroup;
-  UpdateForm:FormGroup;
   formUserSearch:FormGroup;
   intGlblUserId:any;
 
@@ -39,9 +38,7 @@ export class UserlistComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.pageLimit = this.pageServiceObj.showPagelist;
-    this.getAllUserList();
-
+   
     this.UserForm = this.formBuilder.group({
       'txtName': ['', <any>Validators.required],
       'noofproduct': ['', <any>Validators.required],
@@ -52,17 +49,18 @@ export class UserlistComponent implements OnInit {
     });
 
     this.formUserSearch = this.formBuilder.group({
-      'txtName': [""],
+      'name': [""],
       'email': [""],
       'mobile': [""]
     });
 
-    this.UpdateForm = this.formBuilder.group({
-      'message': [""],
-    });
+    this.getAllUserList();
+    this.pageLimit = this.pageServiceObj.showPagelist;
 
 
   }
+
+  get getControl() { return this.formUserSearch.controls; }
 
   getAllUserList() {
     let skipCount = this.intSkipCount;
@@ -74,8 +72,11 @@ export class UserlistComponent implements OnInit {
       var objData = {
         intSkipCount: skipCount,
         intPageLimit: this.intPageLimit,
+        email :  this.getControl.email.value,
+        mobile :  this.getControl.mobile.value,
+        userName :  this.getControl.name.value,
       }
-      
+      console.log("objData=----",objData)
       this.userSRV.get_user_list(objData).subscribe((res: any) => {
         if (res && res.success === true) {
 
@@ -91,8 +92,8 @@ export class UserlistComponent implements OnInit {
         }
       },(error:HttpErrorResponse) => {
 
-        console.log(error.error);
-        if( error.message === "token expired"){
+        console.log(error);
+        if( error.message === "jwt expired"){
           this.router.navigate( ['./admin']);
         }
     });

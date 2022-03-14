@@ -69,7 +69,7 @@ console.log("res ---------------",res)
           localStorage.setItem('user_details',  JSON.stringify(res.data));
           this.router.navigate( ['/userlist']);
             if (res.data) {
-              localStorage.setItem('token',  JSON.stringify(res.data.access_token));
+              localStorage.setItem('token',  JSON.stringify(res.token));
             }
         } else {
           Swal.fire("warning!", res.message, "warning");
@@ -77,8 +77,8 @@ console.log("res ---------------",res)
       },(error:HttpErrorResponse) => {
         // Swal.fire("warning!", 'Login Faild', "warning");
         console.log(error.error);
-        if( error.message === "token expired"){
-          this.router.navigate( ['./account']);
+        if( error.message === "Token Error"){
+          this.router.navigate( ['./admin']);
         }
     });
 
