@@ -92,7 +92,7 @@
                 </thead>
                 <tr *ngFor="let obj of arryallUserData;let i = index" >
                 <td>{{i+1}}</td>
-                <td class="popup" (click)="openModal(UserTemplate,obj)"> {{obj.userName}} </td>
+                <td > {{obj.userName}} </td>
                 <td> {{obj.email}} </td>
                 <td> {{obj.mobile}} </td>
             
@@ -156,39 +156,3 @@
 
   </div>
 </div>
-
-<ng-template #UserTemplate>
-  <div class="card-body">
-
-    <div class="headcard">
-      <h1 class="headtxtcard">VIEW PROFILE </h1>
-    </div>
-
-    <div  *ngIf="objSelected">
-
-      <div class="col-md-12">
-        <div class="row ">
-          <label class="col-md-4">Name:</label>
-          <p class="txt1 col-md-6">{{objSelected.userName}}</p>
-        </div>
-      </div>
-
-      <div class="col-md-12">
-        <div class="row ">
-          <label class="col-md-4">Email:</label>
-          <p class="txt1 col-md-6">{{objSelected.email}}</p>
-        </div>
-      </div>
-
-      <div class="col-md-12">
-        <div class="row ">
-          <label class="col-md-4">Mobile:</label>
-          <p class="txt1 col-md-6">{{objSelected.mobile}}</p>
-        </div>
-      </div>
-
-
-
-    </div>
-  </div>
-</ng-template>

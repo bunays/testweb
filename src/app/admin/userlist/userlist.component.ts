@@ -66,21 +66,6 @@ export class UserlistComponent implements OnInit {
 
   }
 
-  openModal(template: TemplateRef<any>,objData:any) {
-    this.objSelected =objData;
-
-    this.modalRef = this.modalService.show(template);
-
-    this.intGlblUserId = objData.pkIntsubCategoryId
-
-    this.UserForm.patchValue({txtName: objData.name});
-    this.UserForm.patchValue({noofproduct: objData.noofproduct});
-    this.UserForm.patchValue({rate: objData.rate});
-    this.UserForm.patchValue({totalsale: objData.totalsale});
-    this.UserForm.patchValue({txtstatus: objData.status});
-    this.UserForm.patchValue({plan: objData.plan});
-  }
-
   getAllUserList() {
     let skipCount = this.intSkipCount;
 
@@ -110,82 +95,14 @@ export class UserlistComponent implements OnInit {
 
         console.log(error.error);
         if( error.message === "token expired"){
-          this.router.navigate( ['./account']);
+          this.router.navigate( ['./admin']);
         }
     });
     } catch (error) {
     }
 
-            //  this.arryallUserData = this.arryallUserData
-            // console.log("ddddddddd",this.arryallUserData)
-          this.intTotalCount =this.arryallUserData.length;
-          this.pager = this.pageServiceObj.getPager(
-            this.intTotalCount,
-            this.pager.currentPage,
-            this.intPageLimit
-          );
   }
-
-  clear(){
-
-    this.UpdateForm.patchValue({message:null});
-  }
-
-  updateStatus(obj,status){
-    console.log("ssssssssssssssss",obj)
-
-  
-
-
-  }
-
-  Edituser(obj){
-    try {
-
-      if(obj.txtName && obj.cmbDetailCategoryType ){
-
-        var objData ={
-          pkIntsubCategoryId: this.intGlblUserId,
-          name : obj.txtName,
-          email :obj.txtemail,
-          mobile  : obj.txtmobile,
-          status : obj.txtstatus,
-        }
-
-        this.adminSrv.update_user_Details(objData).subscribe(res => {
-          if (res && res.success === true) {
-            Swal.fire({
-              title: "Updated!",
-              text: "User Updated Successfully",
-              icon: "success",
-            })
-              this.arryOfUserDetailsData=res.data[0]
-              this.getAllUserList();
-              // this.cancel();
-          } else {
-            Swal.fire("Error!", res.message, "error");
-          }
-
-        },(error:HttpErrorResponse) => {
-          // Swal.fire("warning!", error.message, "warning");
-          console.log(error.error);
-          if( error.message === "token expired"){
-          this.router.navigate(['']);
-          }
-        });
-
-
-      }else{
-        Swal.fire("warning!", "Missing required parameter ", "warning");
-      }
-
-    } catch (error) {
-      Swal.fire("Error!", error, "error");
-
-    }
-
-  }
-
+ 
   getPageLimit(value$) {
     this.intPageLimit = value$;
     this.setPage(1);
