@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit ,ContentChild} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs/operators';
 import Swal from "sweetalert2";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {AdminService  } from '../../_service/admin.service';
+import {UserService} from '../../_service/user.service';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,45 +16,51 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
   loading = false;
-  arryAdminDetails:[];
-  admindetails:any
-  returnUrl: string;
+  password ;
+  show = false;
+  
+
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private adminSRV: AdminService,
+    private userSRV:UserService
 
   ) { }
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      txtemail: ['', [Validators.required, Validators.email]],
-      txtpassword: ['', [Validators.required]],
-      // rememberMe: [false, Validators.requiredTrue]
-    });
+    this.password = 'password';
 
-    // get return url from route parameters or default to '/'
-    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/device';
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required]],
+    });
   }
 
   // convenience getter for easy access to form fields
   get getControl() { return this.loginForm.controls; }
 
-  onSubmitHandler() {
-    this.submitted = true;
 
+  onClick() {
+    if (this.password === 'password') {
+      this.password = 'text';
+      this.show = true;
+    } else {
+      this.password = 'password';
+      this.show = false;
+    }
   }
 
   login(value) {
-    if (value.txtpassword) {
+    if (value.password) {
 
       const objUser = {
-        email: value.txtemail,
-        password: value.txtpassword,
+        email: value.email,
+        password: value.password,
       };
 
-      this.adminSRV.admin_login(objUser).subscribe(res => {
+      this.userSRV.user_login(objUser).subscribe(res => {
 console.log("res ---------------",res)
         if (res.success === true) {
           Swal.fire({
@@ -61,9 +69,8 @@ console.log("res ---------------",res)
             icon: "success",
           })
 
-          localStorage.setItem('admin_details',  JSON.stringify(res.data));
+          localStorage.setItem('user_details',  JSON.stringify(res.data));
           this.router.navigate( ['/userlist']);
-          this.arryAdminDetails = JSON.parse(localStorage.getItem('admin_details'));
             if (res.data) {
               localStorage.setItem('token',  JSON.stringify(res.data.access_token));
             }

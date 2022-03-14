@@ -22,12 +22,10 @@ export class AdminService {
     private https: HttpClientService
 
   ) {}
+  
 
-  admin_login(obj){
-    return this.https.post('/api/admin/auth/login', obj)
-    .map(res => res.json())
-    .catch(this.https.hamdleError);
-  }
+  
+
 
   update_user_Details(obj){
     return this.https.post('/api/admin/UpdateUserDetails', obj)

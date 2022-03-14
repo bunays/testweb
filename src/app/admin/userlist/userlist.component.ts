@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { PagerService } from "../../_service/pager.service";
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import {FormBuilder,Validators,FormGroup} from '@angular/forms';
+import {UserService} from '../../_service/user.service';
 
 @Component({
   selector: 'app-userlist',
@@ -20,7 +21,7 @@ export class UserlistComponent implements OnInit {
   objSelected :any;
   UserForm:FormGroup;
   UpdateForm:FormGroup;
-  frmTaskSarchData:FormGroup;
+  formUserSearch:FormGroup;
   intGlblUserId:any;
 
 
@@ -36,6 +37,7 @@ export class UserlistComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private modalService: BsModalService,
+    private userSRV:UserService
   ) { }
 
   ngOnInit(): void {
@@ -51,17 +53,14 @@ export class UserlistComponent implements OnInit {
       'txtstatus': ['Active', <any>Validators.required],
     });
 
-    this.frmTaskSarchData = this.formBuilder.group({
+    this.formUserSearch = this.formBuilder.group({
       'txtName': [""],
-      'plan': [""],
-      'city': [""],
-      'cmbTaskStatus':  [""],
-
+      'email': [""],
+      'mobile': [""]
     });
 
     this.UpdateForm = this.formBuilder.group({
       'message': [""],
-
     });
 
 
@@ -83,93 +82,40 @@ export class UserlistComponent implements OnInit {
   }
 
   getAllUserList() {
-    // let skipCount = this.intSkipCount;
+    let skipCount = this.intSkipCount;
 
-    // if (this.pager.intSkipCount) {
-    //   skipCount = this.pager.intSkipCount;
-    // }
-    // try {
-    //   var objData = {
-    //     intSkipCount: skipCount,
-    //     intPageLimit: this.intPageLimit,
-    //   }
-    //   this.adminSrv.getAllUserList(objData).subscribe(res => {
-    //     if (res && res.success === true) {
+    if (this.pager.intSkipCount) {
+      skipCount = this.pager.intSkipCount;
+    }
+    try {
+      var objData = {
+        intSkipCount: skipCount,
+        intPageLimit: this.intPageLimit,
+      }
+      this.userSRV.get_user_list(objData).subscribe(res => {
+        console.log("sahusd ----",res)
+        if (res && res.success === true) {
 
-    //       this.arryallUserData = res.data[0]
-    //       this.intTotalCount = res.data[1].intTotalCount;
-    //       this.pager = this.pageServiceObj.getPager(
-    //         this.intTotalCount,
-    //         this.pager.currentPage,
-    //         this.intPageLimit
-    //       );
-    //     } else {
-    //       console.log(res);
-    //     }
-    //   },(error:HttpErrorResponse) => {
+          this.arryallUserData = res.data[0]
+          this.intTotalCount = res.data[1].intTotalCount;
+          this.pager = this.pageServiceObj.getPager(
+            this.intTotalCount,
+            this.pager.currentPage,
+            this.intPageLimit
+          );
+        } else {
+          console.log(res);
+        }
+      },(error:HttpErrorResponse) => {
 
-    //     console.log(error.error);
-    //     if( error.message === "token expired"){
-    //       this.router.navigate( ['./account']);
-    //     }
-    // });
-    // } catch (error) {
-    // }
+        console.log(error.error);
+        if( error.message === "token expired"){
+          this.router.navigate( ['./account']);
+        }
+    });
+    } catch (error) {
+    }
 
-    this.arryallUserData = [
-      {
-        id:1,
-        name:"bunays",
-        email:"bunays@gmail.com",
-        city:"uae",
-        plan:"plan .",
-        noofproduct:1,
-        rate:1,
-        totalsale:500,
-        phone_no:"89562314788",
-        adress:"pulika house ",
-        status:"Active"
-      },
-      {
-        id:2,
-        name:"awad",
-        city:"abu dubai",
-        email:"awad@gmail.com",
-        plan:"plan .",
-        noofproduct:6,
-        rate:2,
-        totalsale:1000,
-        adress:"yud jjd house ",
-        phone_no:"98565458555",
-        status:"Active"
-      },
-      {
-        id:2,
-        name:"jamshi",
-        city:"dubai",
-        email:"jamshi@gmail.com",
-        plan:"plan .",
-        noofproduct:16,
-        rate:5,
-        totalsale:780,
-        adress:"ullikand house ",
-        phone_no:"8956231478",
-        status:"Inactive"
-      },
-      {
-        id:4,
-        name:"althaf",
-        city:"dubai",
-        email:"althaf@gmail.com",
-        plan:"plan .",
-        noofproduct:26,
-        rate:3,
-        totalsale:850,
-        adress:"ttsys d house",
-        phone_no:"32545898888",
-        status:"Active"
-      },
-    ],
             //  this.arryallUserData = this.arryallUserData
             // console.log("ddddddddd",this.arryallUserData)
           this.intTotalCount =this.arryallUserData.length;
@@ -255,6 +201,10 @@ export class UserlistComponent implements OnInit {
       this.intPageLimit
     );
     this.getAllUserList();
+  }
+
+  onCreate(){
+    this.router.navigate(['/add-user']);
   }
 
 

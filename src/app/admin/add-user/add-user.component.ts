@@ -2,6 +2,7 @@
 import { Component, OnInit,TemplateRef } from '@angular/core';
 import Swal from "sweetalert2";
 import {AdminService} from '../../_service/admin.service';
+import {UserService} from '../../_service/user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { PagerService } from "../../_service/pager.service";
@@ -38,6 +39,7 @@ export class AddUserComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private modalService: BsModalService,
+    private userSRV:UserService
   ) { }
 
   ngOnInit(): void {
@@ -45,8 +47,13 @@ export class AddUserComponent implements OnInit {
     this.getAllUserList();
 
     this.UserForm = this.formBuilder.group({
-      'txtemail': ['', [Validators.required, Validators.email]],
-      'txtpassword': ['', [Validators.required,Validators.minLength(8),PasswordStrengthValidator]],
+      'email': ['', [Validators.required, Validators.email]],
+      'password': ['', [Validators.required,Validators.minLength(8),PasswordStrengthValidator]],
+      'prePassword': ['', [Validators.required,Validators.minLength(8),PasswordStrengthValidator]],
+      'firstName': [""],
+      'lastName': [""],
+      'userName': [""],
+      'mobile': [""],
       
     });
 
@@ -55,12 +62,10 @@ export class AddUserComponent implements OnInit {
       'plan': [""],
       'city': [""],
       'cmbTaskStatus':  [""],
-
     });
 
     this.UpdateForm = this.formBuilder.group({
       'message': [""],
-
     });
 
 
@@ -194,24 +199,27 @@ export class AddUserComponent implements OnInit {
 
   }
 
-  Edituser(obj){
+  createUser(obj){
+    console.log("skosdy 00----",obj)
     try {
 
-      if(obj.txtName && obj.cmbDetailCategoryType ){
-
+      if( this.getControl.password.value === this.getControl.prePassword.value){
+       
         var objData ={
-          pkIntsubCategoryId: this.intGlblUserId,
-          name : obj.txtName,
-          email :obj.txtemail,
-          mobile  : obj.txtmobile,
-          status : obj.txtstatus,
+          email : obj.email,
+          userName :obj.userName,
+          firstName  : obj.firstName,
+          lastName  : obj.lastName,
+          mobile  : obj.mobile,
+          password  : obj.password
         }
 
-        this.adminSrv.update_user_Details(objData).subscribe(res => {
+        this.userSRV.register_user(objData).subscribe(res => {
+          console.log("res shoe in here =---",res)
           if (res && res.success === true) {
             Swal.fire({
-              title: "Updated!",
-              text: "User Updated Successfully",
+              title: "Saved!",
+              text: "Registered Successfully",
               icon: "success",
             })
               this.arryOfUserDetailsData=res.data[0]
@@ -231,7 +239,7 @@ export class AddUserComponent implements OnInit {
 
 
       }else{
-        Swal.fire("warning!", "Missing required parameter ", "warning");
+        Swal.fire("warning!", "Password Miss Match", "warning");
       }
 
     } catch (error) {
@@ -256,6 +264,10 @@ export class AddUserComponent implements OnInit {
       this.intPageLimit
     );
     this.getAllUserList();
+  }
+
+  onCancel(){
+
   }
 
 

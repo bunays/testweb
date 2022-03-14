@@ -1,10 +1,8 @@
 <div class="container-fluid  fullHeight">
-  <!-- <div class="row "> -->
     <div class="col-md-12 fullHeight" >
       <div class="row fullHeight">
 
       <div class="col-md-6 "  style="background:#ffffff">
-        <!-- <img  src="../../assets/dist/img/banner-3.jpg"class="slideimg" alt="second slide" > -->
         <div class="row">
           <img src="../../../assets/dist/img/login_bg_img.png" class="loginbg" alt="second slide" >
         </div>
@@ -25,21 +23,28 @@
                 <div class="col-md-6">
                   <div class="form-group">
                     <label> Email </label>
-                    <input type="email" class="form-control inputtype" formControlName="txtemail"  
-                    placeholder="Enter Your Email" [ngClass]="{ 'status-danger': getControl.txtemail.invalid }" >
+                    <input type="email" class="form-control inputtype" formControlName="email"  
+                    placeholder="Enter Your Email" [ngClass]="{ 'status-danger': getControl.email.invalid }" >
                   </div>
-                  <div *ngIf="getControl.txtemail.touched && getControl.txtemail.invalid" class="text-danger">
-                    <div *ngIf="getControl.txtemail.errors.required">Email is required.</div>
+                  <div *ngIf="getControl.email.touched && getControl.email.invalid" class="text-danger">
+                    <div *ngIf="getControl.email.errors.required">Email is required.</div>
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
                     <label> Password </label>
-                    <input type="password" class="form-control inputtype"  formControlName="txtpassword"  
-                    placeholder=" Enter Your  password" name="email"  [ngClass]="{ 'status-danger': getControl.txtpassword.invalid }" >
-                    <div *ngIf="getControl.txtpassword.touched && getControl.txtpassword.invalid" class="text-danger">
-                      <div *ngIf="getControl.txtpassword.errors.required">Password is required.</div>
+                    <div class="input-group">
+                      <input [type]="password" class="form-control inputtype"  formControlName="password"  
+                      placeholder="Enter Your  password"  [ngClass]="{ 'status-danger': getControl.password.invalid }" />
+                      <button (click)="onClick()">
+                        <i class="fa fa-eye" aria-hidden="true" *ngIf="!show"></i>
+                        <i class="fa fa-eye-slash" aria-hidden="true" *ngIf="show"></i>
+                      </button>
                     </div>
+                      <div *ngIf="getControl.password.touched && getControl.password.invalid" class="text-danger">
+                        <div *ngIf="getControl.password.errors.required">Password is required.</div>
+                      </div>
+                      
                   </div>
                 </div>
               </div>
@@ -59,5 +64,4 @@
 
     </div>
   </div>
-
 </div>
