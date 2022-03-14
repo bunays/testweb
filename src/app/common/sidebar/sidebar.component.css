@@ -1,0 +1,39 @@
+
+
+.sidebarDark {
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.sidebarActive {
+    background-color: #000000;
+}
+
+.hand {
+    cursor: pointer;
+}
+
+.logo a, .logo {
+    background-color:  #000000;;
+    color: #fff;
+}
+
+.sidebar[data-background-color="blueblack"] {
+    background-color:  #000000;
+}
+
+.sidebar[data-color="white"] li a {
+    color: rgb(255, 255, 255);
+}
+
+.sidebar[data-color="white"] li.active>a > i{
+    color: #ffffff;
+    background-color: #ffffff;
+}
+.sidebar[data-color="white"] li.active>a {
+    color: rgb(0, 0, 0);
+    background-color: #ffffff;
+  }
+  .imgicon{
+    width: 35px;
+  }

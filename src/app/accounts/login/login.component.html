@@ -1,0 +1,63 @@
+<div class="container-fluid  fullHeight">
+  <!-- <div class="row "> -->
+    <div class="col-md-12 fullHeight" >
+      <div class="row fullHeight">
+
+      <div class="col-md-6 "  style="background:#ffffff">
+        <!-- <img  src="../../assets/dist/img/banner-3.jpg"class="slideimg" alt="second slide" > -->
+        <div class="row">
+          <img src="../../../assets/dist/img/login_bg_img.png" class="loginbg" alt="second slide" >
+        </div>
+
+      </div>
+
+      <div class="col-md-6 bgColor  m-auto- centerAlign" >
+        <div class="col border">
+
+          <div class="social text-center mb-5">
+            <h2 class="fontWeight mb-4" style="color: #F25D38; margin-top: 30px;">User Login </h2>
+            <span style="color:#613f1e;"> let's get started </span>
+          </div>
+
+          <form class="form col-md-12 m-auto" [formGroup]="loginForm" >
+            <div class="col-md-12">
+              <div class="row ">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label> Email </label>
+                    <input type="email" class="form-control inputtype" formControlName="txtemail"  
+                    placeholder="Enter Your Email" [ngClass]="{ 'status-danger': getControl.txtemail.invalid }" >
+                  </div>
+                  <div *ngIf="getControl.txtemail.touched && getControl.txtemail.invalid" class="text-danger">
+                    <div *ngIf="getControl.txtemail.errors.required">Email is required.</div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label> Password </label>
+                    <input type="password" class="form-control inputtype"  formControlName="txtpassword"  
+                    placeholder=" Enter Your  password" name="email"  [ngClass]="{ 'status-danger': getControl.txtpassword.invalid }" >
+                    <div *ngIf="getControl.txtpassword.touched && getControl.txtpassword.invalid" class="text-danger">
+                      <div *ngIf="getControl.txtpassword.errors.required">Password is required.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            <div class="row justify-content-around">
+              <button class="btn col-md-5" style="background:#F25D38; color: #ffff;margin-bottom: 50px;margin-top: 50px;"
+              (click)="login(loginForm.value)">Login </button>
+            </div>
+          </div>
+          </form>
+
+        </div>
+      </div>
+
+      <!-- <div class="col-md-2 "  style="background:#613f1e">
+      </div> -->
+
+    </div>
+  </div>
+
+</div>

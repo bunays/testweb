@@ -1,0 +1,103 @@
+<div class="main-content ">
+    <div class="container-fluid ">
+        <div class="col-md-12 " >
+            <div class="row txtHeader">
+                <p class="txtHeader"  >User Register</p>
+            </div>
+        </div>
+        <div class="row topserch">
+            <div class="col-md-12 ">
+            <div class="card " >
+                <div class="card-body " >
+                    <form [formGroup]="UserForm" >
+
+                        <div class="row">
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <div class="frmpos1">
+                                        <label class="lbltxt"> First Name </label>
+                                        <input type="text" class="form-control inputtype" formControlName="txtemail"  
+                                        placeholder="Enter Your First Name" [ngClass]="{ 'status-danger': getControl.txtemail.invalid }" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <div class="frmpos1">
+                                        <label class="lbltxt"> Last Name </label>
+                                        <input type="text" class="form-control inputtype" formControlName="txtemail"  
+                                        placeholder="Enter Your Last Name" [ngClass]="{ 'status-danger': getControl.txtemail.invalid }" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <div class="frmpos1">
+                                        <label class="lbltxt"> Email </label>
+                                        <input type="email" class="form-control inputtype" formControlName="txtemail"  
+                                        placeholder="Enter Your Email" [ngClass]="{ 'status-danger': getControl.txtemail.invalid }" >
+                                        <div *ngIf="getControl.txtemail.touched && getControl.txtemail.invalid" class="text-danger">
+                                            <div *ngIf="getControl.txtemail.errors.required">Email is required.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <div class="frmpos1">
+                                        <label class="lbltxt"> User Name </label>
+                                        <input type="text" class="form-control inputtype" formControlName="txtemail"  
+                                        placeholder="Enter Your Last Name" [ngClass]="{ 'status-danger': getControl.txtemail.invalid }" >
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <div class="frmpos1">
+                                        <label class="lbltxt"> Mobile </label>
+                                        <input type="text" class="form-control inputtype" formControlName="txtemail"  
+                                        placeholder="Enter Your Email" [ngClass]="{ 'status-danger': getControl.txtemail.invalid }" >
+                                        <div *ngIf="getControl.txtemail.touched && getControl.txtemail.invalid" class="text-danger">
+                                            <div *ngIf="getControl.txtemail.errors.required">Email is required.</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 ">
+                                <div class="form-group">
+                                    <div class="frmpos1">
+                                        <label> Password </label>
+                                        <input type="password" class="form-control inputtype"  formControlName="txtpassword"  
+                                        placeholder=" Enter Your  password" name="email"  [ngClass]="{ 'status-danger': getControl.txtpassword.invalid }" >
+                                        <div class="errors" *ngIf="UserForm.get('txtpassword').invalid && (UserForm.get('txtpassword').touched || UserForm.get('txtpassword').dirty)">
+                                            <div *ngIf="UserForm.get('txtpassword').hasError('required')">
+                                                password is required
+                                            </div>
+                                            <div *ngIf="UserForm.get('txtpassword').errors.minlength">
+                                                Password must be at least 8 characters
+                                            </div>
+                                            <div class="error-text" *ngIf="UserForm.get('txtpassword').hasError('passwordStrength')">
+                                                {{UserForm.get('txtpassword').errors['passwordStrength']}}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 pull-right">
+                                <div class="row pull-right">
+                                <button  class="btn1" >Register</button>
+                                <!-- (click)="getTask_VerificationList()" -->
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

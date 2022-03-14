@@ -1,0 +1,392 @@
+
+<div class="main-content ">
+  <div class="container-fluid ">
+
+    <div class="col-md-12 " >
+      <div class="row txtHeader">
+        <p class="txtHeader"  >User List </p>
+      </div>
+    </div>
+
+    <div class="row topserch">
+      <div class="col-md-12 ">
+        <div class="card " >
+          <div class="card-body " >
+            <form [formGroup]="frmTaskSarchData" >
+
+              <div class="row">
+                <div class="col-md-6 ">
+                  <div class="form-group">
+                    <div class="frmpos1">
+                      <label class="lbltxt">  Name </label>
+                      <input type="text" class="form-control inputtype" formControlName="txtName"
+                      name="txtName"  >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 ">
+                  <div class="form-group">
+                    <div class="frmpos1">
+                      <label class="lbltxt"> City </label>
+                      <input type="text" class="form-control inputtype" formControlName="city"
+                      name="city"  >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 ">
+                  <div class="form-group">
+                    <div class="frmpos1">
+                      <label class="lbltxt"> Plan </label>
+                      <input type="text" class="form-control inputtype" formControlName="plan"
+                      name="plan"  >
+                        <!-- <option value=""> --Select Plan-- </option>
+                          <option value="1">Plan 1 </option>
+                          <option value="2">Plan 2 </option>
+                          <option value="2">Plan 3 </option>
+                        </select> -->
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-md-6 ">
+                  <div class="form-group">
+                    <div class="frmpos1">
+                      <label class="lbltxt"> Status </label>
+                      <select type="text" class="form-control inputtype" formControlName="cmbTaskStatus"
+                      name="cmbTaskStatus"  >
+                          <option value=""> --Select Status-- </option>
+                          <option value="1">Active </option>
+                          <option value="2">Inactive </option>
+                        </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 pull-right">
+                  <div class="row pull-right">
+                  <button  class="btn1" >Search</button>
+                  <!-- (click)="getTask_VerificationList()" -->
+                  </div>
+                </div>
+
+              </div>
+
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-1">
+      </div>
+      <div class="col-md-2">
+        <select class="form-control" (change)="getPageLimit($event.target.value)">
+          <option *ngFor="let item of pageLimit;"  [value]=item.count>{{item.count}}</option>
+        </select>
+      </div>
+      <!-- <div class="col-1">
+      </div>
+      <div class="col-md-3">
+        <p class="count oval" style="color: #F0767B;">
+          <span>Active</span> 7</p>
+
+      </div>
+      <div class="col-md-3">
+          <p class="count" style="color: #F0767B;">
+            <span>Rejected</span> 19</p>
+      </div> -->
+    </div>
+
+    <div class="row ">
+      <div class="col-md-12">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table tblhead">
+                <thead >
+                  <th> No.</th>
+                  <th> Name </th>
+                  <th> Location </th>
+                  <th> Plan </th>
+                  <th> No.of Product </th>
+                  <th> Rate </th>
+                  <th> Total Sale </th>
+                  <!-- <th> Remarks</th> -->
+                  <th> Action</th>
+                </thead>
+                <tr *ngFor="let UserList of arryallUserData;let i = index" >
+                <td>{{i+1}}</td>
+                <td class="popup" (click)="openModal(UserTemplate,UserList)"> {{UserList.name}} </td>
+                <td> {{UserList.city}} </td>
+                <td> {{UserList.plan}} </td>
+                <td> {{UserList.noofproduct}} </td>
+                <td>
+                  <!-- {{UserList.rate}} -->
+                  <ng-template [ngIf]="(UserList.rate) == '1'">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                  </ng-template>
+                  <ng-template [ngIf]="(UserList.rate) == '2'">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star "></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                  </ng-template>
+                  <ng-template [ngIf]="(UserList.rate) == '3'">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                    <span class="fa fa-star"></span>
+                  </ng-template>
+                  <ng-template [ngIf]="(UserList.rate) == '4'">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star"></span>
+                  </ng-template>
+                  <ng-template [ngIf]="(UserList.rate) == '5'">
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                    <span class="fa fa-star checked"></span>
+                  </ng-template>
+
+                 </td>
+                <td> {{UserList.totalsale}} </td>
+                <!-- <td> {{UserList.remarks}} </td> -->
+                <td>
+                  <ng-template [ngIf]="(UserList.status) == 'Active'">
+                    <button type="button"  (click)="openModal(DeleteTemplate,UserList,'Inactive')"
+                     class="round-btn btnstatus1">{{UserList.status}}</button>
+                  </ng-template>
+                  <ng-template [ngIf]="(UserList.status) == 'Inactive'">
+                    <button type="button"  (click)="openModal(DeleteTemplate,UserList,'Active')"
+
+                     class="round-btn btnstatus2">{{UserList.status}}</button>
+                  </ng-template>
+                </td>
+              </tr>
+              </table>
+              <div class="text-right table-responsive mt-2">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                    <li
+                      class="page-item"
+                      [ngClass]="{ disabled: pager.currentPage === 1 }"
+                    >
+                      <a class="page-link" (click)="setPage(1)">First</a>
+                    </li>
+                    <li
+                      class="page-item"
+                      [ngClass]="{ disabled: pager.currentPage === 1 }"
+                    >
+                      <a class="page-link" (click)="setPage(pager.currentPage - 1)"
+                        >Previous</a
+                      >
+                    </li>
+                    <li
+                      class="page-item"
+                      *ngFor="let page of pager.pages"
+                      [ngClass]="{ active: pager.currentPage === page }"
+                    >
+                      <a class="page-link" (click)="setPage(page)">{{ page }}</a>
+                    </li>
+                    <li
+                      class="page-item"
+                      [ngClass]="{ disabled: pager.currentPage === pager.totalPages }"
+                    >
+                      <a class="page-link" (click)="setPage(pager.currentPage + 1)"
+                        >Next</a
+                      >
+                    </li>
+                    <li
+                      class="page-item"
+                      [ngClass]="{ disabled: pager.currentPage === pager.totalPages }"
+                    >
+                      <a class="page-link" (click)="setPage(pager.totalPages)"
+                        >Last</a
+                      >
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <div  class="card card-body" *ngIf="!arryallUserData.length">
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <h3>No data found. Please select above details</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<ng-template #UserTemplate>
+  <div class="card-body">
+
+    <div class="headcard">
+      <h1 class="headtxtcard">VIEW PROFILE </h1>
+    </div>
+
+    <div  *ngIf="objSelected">
+
+      <div class="col-md-12">
+        <div class="row ">
+          <label class="col-md-4">Name:</label>
+          <p class="txt1 col-md-6">{{objSelected.name}}</p>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row ">
+          <label class="col-md-4">Email:</label>
+          <p class="txt1 col-md-6">{{objSelected.email}}</p>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row ">
+          <label class="col-md-4">City:</label>
+          <p class="txt1 col-md-6">{{objSelected.city}}</p>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row ">
+          <label class="col-md-4">Plan:</label>
+          <p class="txt1 col-md-6">{{objSelected.plan}}</p>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row ">
+          <label class="col-md-4">Mobile:</label>
+          <p class="txt1 col-md-6">{{objSelected.phone_no}}</p>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row ">
+          <label class="col-md-4">No.of Product:</label>
+          <p class="txt1 col-md-6">{{objSelected.noofproduct}}</p>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row ">
+          <label class="col-md-4">Total Sale:</label>
+          <p class="txt1 col-md-6">{{objSelected.totalsale}}</p>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row ">
+          <label class="col-md-4">Adress:</label>
+          <p class="txt1 col-md-6">{{objSelected.adress}}</p>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div class="row ">
+          <label class="col-md-4">Rating:</label>
+          <p class="txt1 col-md-6"> <ng-template [ngIf]="(objSelected.rate) == '1'">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </ng-template>
+          <ng-template [ngIf]="(objSelected.rate) == '2'">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star "></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </ng-template>
+          <ng-template [ngIf]="(objSelected.rate) == '3'">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+            <span class="fa fa-star"></span>
+          </ng-template>
+          <ng-template [ngIf]="(objSelected.rate) == '4'">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star"></span>
+          </ng-template>
+          <ng-template [ngIf]="(objSelected.rate) == '5'">
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+            <span class="fa fa-star checked"></span>
+          </ng-template></p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template #DeleteTemplate>
+  <div class="card-body">
+    <form  [formGroup]="UpdateForm" >
+      <div class="modal-header">
+        <h4 class="modal-title pull-center">Action Box</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <ng-template [ngIf]="(objSelected.status) == 'Active'">
+        <p class="quest"> Are you sure you want to Inactive this account?</p>
+        <div class="col-md-12 ">
+          <div class="form-group">
+            <!-- <label class="lbltxt"> Message </label> -->
+            <textarea type="number" class="form-control inputtypes" placeholder="Why you inactive this account?"
+            formControlName="message" ></textarea>
+          </div>
+        </div>
+        <div class="row btnpos"  >
+          <button type="button" class="btncard"  *ngIf="modalRef" type="button" (click)="clear().modalRef.hide()"
+          data-dismiss="modal" style="background-color: rgb(68, 65, 220);margin-right: 10px;"><span class="fa fa-remove "></span> Cancel </button>
+          <button type="button" class="btncard"  *ngIf="modalRef" type="button" (click)="updateStatus(UserList,'Inactive').modalRef.hide()"
+            data-dismiss="modal" style="background-color: tomato;"><span class="fa fa-check "></span> Inactive </button>
+
+        </div>
+      </ng-template>
+
+      <ng-template [ngIf]="(objSelected.status) == 'Inactive'">
+        <p class="quest">Are you sure you want to Active this account?</p>
+
+        <div class="row btnpos"  >
+          <button type="button" class="btncard"  *ngIf="modalRef" type="button"  (click)="clear().modalRef.hide()"
+          data-dismiss="modal" style="background-color: rgb(68, 65, 220);margin-right: 10px;"> <span class="fa fa-remove "></span> Cancel </button>
+          <button type="button" class="btncard"  *ngIf="modalRef" type="button"  (click)="updateStatus(UserList,'Active').modalRef.hide()"
+            data-dismiss="modal" style="background-color: rgb(104, 230, 99);"><span class="fa fa-check "></span> Active </button>
+
+        </div>
+      </ng-template>
+    </form>
+  </div>
+
+</ng-template>
