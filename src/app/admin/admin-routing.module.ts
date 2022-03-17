@@ -10,7 +10,7 @@ import { AddUserComponent } from './add-user/add-user.component';
 const routes: Routes = [
   {
     path: '', component: LayoutComponent,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       { path: "", redirectTo: "userlist", pathMatch: "full" },
       { path: 'userlist', component: UserlistComponent },

@@ -55,6 +55,7 @@ export class LoginComponent implements OnInit {
       const objUser = {
         email: value.email,
         password: value.password,
+        
       };
 
       this.userSRV.user_login(objUser).subscribe(res => {
@@ -77,13 +78,12 @@ console.log("res ---------------",res)
       },(error:HttpErrorResponse) => {
         // Swal.fire("warning!", 'Login Faild', "warning");
         console.log(error.error);
-        if( error.message === "Token Error"){
-          this.router.navigate( ['./admin']);
-        }
+      
     });
 
     }
   }
+
 
 
 }
